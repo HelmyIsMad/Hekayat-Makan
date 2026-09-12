@@ -1,0 +1,64 @@
+{
+  "mainCards": [
+    {
+      "id": 1,
+      "badge": "أثري",
+      "city": "الجيزة",
+      "era": "فرعوني",
+      "title": "أهرامات الجيزة",
+      "description": "ثلاثة أهرامات خالدة بُنيت قبل أكثر من 4500 عام كمقابر ملكية.",
+      "hours": "يوميا من 8 صباحا حتى 5 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/ef/The_Giza_Pyramids.jpg"
+    },
+    {
+      "id": 2,
+      "badge": "أثري",
+      "city": "الجيزة",
+      "era": "فرعوني",
+      "title": "تمثال أبو الهول",
+      "description": "أعظم التماثيل المنحوتة من صخرة واحدة يجسد أسد ورأس ملك.",
+      "hours": "يوميا من 8 صباحا حتى 5 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Great_Sphinx_of_Giza_-_20080716a.jpg"
+    },
+    {
+      "id": 3,
+      "badge": "ديني",
+      "city": "الأقصر",
+      "era": "فرعوني",
+      "title": "معبد الكرنك",
+      "description": "أضخم مجمع معابد ديني في العالم القديم على مدى ألفي عام.",
+      "hours": "يوميا من 6 صباحا حتى 5:30 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Karnak_Hypostyle_Hall_R05.jpg"
+    },
+    {
+      "id": 4,
+      "badge": "أثري",
+      "city": "أسوان",
+      "era": "فرعوني",
+      "title": "معبد أبو سمبل",
+      "description": "معبد رمسيس الثاني المنحوت في الجبل وأعجوبة إنقاذ حديثة.",
+      "hours": "يوميا من 5 صباحا حتى 6 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Abu_Simbel_main_temple.jpg"
+    },
+    {
+      "id": 5,
+      "badge": "ديني",
+      "city": "القاهرة",
+      "era": "إسلامي",
+      "title": "مسجد محمد علي",
+      "description": "مسجد المرمر المتوج لقلعة صلاح الدين بقبابه العثمانية.",
+      "hours": "يوميا من 8 صباحا حتى 5 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/67/The_great_Mosque_of_Muhammad_Ali_Pasha_-_Cairo.jpg"
+    },
+    {
+      "id": 6,
+      "badge": "معماري",
+      "city": "الإسكندرية",
+      "era": "حديث",
+      "title": "مكتبة الإسكندرية",
+      "description": "إحياء حديث لأشهر مكتبة في التاريخ على كورنيش المتوسط.",
+      "hours": "من الأحد إلى الخميس 10 صباحا حتى 7 مساء",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/Bibliotheca_Alexandrina-Side_View.JPG"
+    }
+  ]
+}
