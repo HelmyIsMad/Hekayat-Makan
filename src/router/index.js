@@ -4,6 +4,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import TermsOfUse from '../views/TermsOfUse.vue'
 import Search from '../views/Search.vue'
+import Explore from '../views/Explore.vue'
+// الراوتات اللي أنا مسؤولة عنها : رحمه
+import Cities from '../views/Cities.vue'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
 
 const routes = [
   
@@ -14,8 +19,32 @@ const routes = [
   // { path: '/about', name: 'about', component: About },
   // { path: '/place/:slug', name: 'place-detail', component: PlaceDetail, props: true },
   // ============================================
-
+{
+    
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
   {
+    
+    path: '/explore',
+    name: 'explore',
+    component: Explore,
+  },
+  {
+    
+    path: '/cities',
+    name: 'cities',
+    component: Cities,
+  },
+  {
+    
+    path: '/about',
+    name: 'about',
+    component: About,
+  },
+  {
+
     path: '/privacy',
     name: 'privacy',
     component: PrivacyPolicy,
