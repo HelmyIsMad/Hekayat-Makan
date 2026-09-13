@@ -1,0 +1,11 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #f2ede1;
+}
+
+#app {
+  min-height: 100vh;
+  background-color: #f2ede1;
+}
