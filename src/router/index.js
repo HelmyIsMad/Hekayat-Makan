@@ -18,33 +18,27 @@ const routes = [
   // { path: '/cities/:slug', name: 'city-detail', component: CityDetail, props: true },
   // { path: '/about', name: 'about', component: About },
   // { path: '/place/:slug', name: 'place-detail', component: PlaceDetail, props: true },
-  // ============================================
-{
-    
+  {
     path: '/',
     name: 'home',
     component: Home,
   },
   {
-    
     path: '/explore',
     name: 'explore',
     component: Explore,
   },
   {
-    
     path: '/cities',
     name: 'cities',
     component: Cities,
   },
   {
-    
     path: '/about',
     name: 'about',
     component: About,
   },
   {
-
     path: '/privacy',
     name: 'privacy',
     component: PrivacyPolicy,
