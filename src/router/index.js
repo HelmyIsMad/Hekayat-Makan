@@ -1,0 +1,75 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+// الراوتات اللي أنا مسؤولة عنها فقط
+import PrivacyPolicy from '../views/PrivacyPolicy.vue'
+import TermsOfUse from '../views/TermsOfUse.vue'
+import Search from '../views/Search.vue'
+import Explore from '../views/Explore.vue'
+// الراوتات اللي أنا مسؤولة عنها : رحمه
+import Cities from '../views/Cities.vue'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+
+const routes = [
+  
+  //
+  // { path: '/explore', name: 'explore', component: Explore },
+  // { path: '/cities', name: 'cities', component: Cities },
+  // { path: '/cities/:slug', name: 'city-detail', component: CityDetail, props: true },
+  // { path: '/about', name: 'about', component: About },
+  // { path: '/place/:slug', name: 'place-detail', component: PlaceDetail, props: true },
+  // ============================================
+{
+    
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+  {
+    
+    path: '/explore',
+    name: 'explore',
+    component: Explore,
+  },
+  {
+    
+    path: '/cities',
+    name: 'cities',
+    component: Cities,
+  },
+  {
+    
+    path: '/about',
+    name: 'about',
+    component: About,
+  },
+  {
+
+    path: '/privacy',
+    name: 'privacy',
+    component: PrivacyPolicy,
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: TermsOfUse,
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search,
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+  scrollBehavior(to) {
+    if (to.hash) {
+      return { el: to.hash, behavior: 'smooth' }
+    }
+    return { top: 0 }
+  },
+})
+
+export default router
