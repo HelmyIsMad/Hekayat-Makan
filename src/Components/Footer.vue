@@ -43,7 +43,7 @@ const cities = [
         <h4 class="col-title">المدن</h4>
         <ul class="col-list">
           <li v-for="city in cities" :key="city.slug">
-            <router-link :to="`/cities/${city.slug}`">
+            <router-link to="/cities">
               {{ city.name }}
             </router-link>
           </li>
