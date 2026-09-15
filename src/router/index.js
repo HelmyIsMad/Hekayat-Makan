@@ -10,6 +10,8 @@ import Cities from '../views/Cities.vue'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 
+import PlaceDetail from '../views/PlaceDetail.vue'
+
 const routes = [
   
   //
@@ -17,7 +19,7 @@ const routes = [
   // { path: '/cities', name: 'cities', component: Cities },
   // { path: '/cities/:slug', name: 'city-detail', component: CityDetail, props: true },
   // { path: '/about', name: 'about', component: About },
-  // { path: '/place/:slug', name: 'place-detail', component: PlaceDetail, props: true },
+   { path: '/place/:id', name: 'place-detail', component: PlaceDetail, props: true },
   // ============================================
 {
     
