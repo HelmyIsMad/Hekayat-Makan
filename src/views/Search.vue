@@ -74,10 +74,10 @@ watch(
 
       <ul v-else class="results-list">
         <li v-for="place in results" :key="place.slug">
-          <router-link :to="`/place/${place.slug}`" class="result-link">
+          <div class="result-link">
             <span class="result-name">{{ place.name }}</span>
             <span class="result-city">{{ place.city }}</span>
-          </router-link>
+          </div>
         </li>
       </ul>
     </div>

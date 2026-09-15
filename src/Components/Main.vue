@@ -12,11 +12,11 @@ const places = data.mainCards
         <span class="eyebrow">أماكن مختارة</span>
         <h2>معالم لا تفوّت زيارتها</h2>
       </div>
-      <a href="#" class="view-all">عرض الكل ←</a>
+      <RouterLink to="/explore" class="view-all">عرض الكل ←</RouterLink>
     </div>
 
     <div class="grid">
-      	<RouterLink :to="`/place/${place.id}`" v-for="place in places" :key="place.id" class="card">
+      	<article v-for="place in places" :key="place.id" class="card">
 			<div class="image-wrap">
 				<img :src="place.image" :alt="place.title" />
 				<span class="badge">{{ place.badge }}</span>
@@ -27,7 +27,7 @@ const places = data.mainCards
 				<p>{{ place.description }}</p>
 				<span class="hours">🕐 {{ place.hours }}</span>
 			</div>
-		</RouterLink>
+		</article>
     </div>
   </section>
 </template>
