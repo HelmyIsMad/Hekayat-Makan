@@ -1,7 +1,15 @@
 <template>
   <!-- رحمة: الصفحة الرئيسية حالياً فاضية لأن محتوى الـ Hero هيتضاف بعدين -->
-  <main class="page"></main>
+  <main class="page">
+    <HeroSection />
+    <Main />
+  </main>
 </template>
+
+<script setup>
+import Main from '../Components/Main.vue'
+import HeroSection from '../Components/HeroSection.vue'
+</script>
 
 <style scoped>
 /* رحمة: خليت مساحة الصفحة بنفس لون الـ Navbar */
