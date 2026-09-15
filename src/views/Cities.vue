@@ -35,7 +35,7 @@ onMounted(async () => {
     <div v-else-if="error" class="state-box error">{{ error }}</div>
 
     <div v-else class="grid">
-      <article v-for="city in cities" :key="city.id" class="card">
+      <router-link v-for="city in cities" :key="city.id" :to="`/cities/${city.id}`" class="card"> 
         <div class="image-wrap">
           <img :src="city.image" :alt="city.name" loading="lazy" />
           <div class="overlay"></div>
@@ -45,7 +45,7 @@ onMounted(async () => {
             <span class="sites">{{ city.sitesCount }} {{ city.sitesLabel }}</span>
           </div>
         </div>
-      </article>
+      </router-link>
     </div>
   </main>
 </template>

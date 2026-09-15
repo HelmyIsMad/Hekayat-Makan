@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+ 
 // الراوتات اللي أنا مسؤولة عنها فقط
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import TermsOfUse from '../views/TermsOfUse.vue'
@@ -9,7 +9,7 @@ import Explore from '../views/Explore.vue'
 import Cities from '../views/Cities.vue'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-
+import CityDetail from '../views/CityDetail.vue'
 const routes = [
   
   //
@@ -35,6 +35,12 @@ const routes = [
     name: 'cities',
     component: Cities,
   },
+  {
+  path: '/cities/:id',
+  name: 'CityDetail',
+  component: CityDetail,
+  props: true,
+},
   {
     
     path: '/about',
