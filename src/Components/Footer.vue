@@ -43,7 +43,7 @@ const cities = [
         <h4 class="col-title">المدن</h4>
         <ul class="col-list">
           <li v-for="city in cities" :key="city.slug">
-            <router-link to="/cities">
+            <router-link :to="`/cities/${city.slug}`">
               {{ city.name }}
             </router-link>
           </li>
@@ -70,132 +70,265 @@ const cities = [
 
 <style scoped>
 .site-footer {
-  background: #f2ede1;
-  color: #3a332b;
-  padding: 56px 24px 32px;
+  background: #f3eee3;
+  color: #332e28;
   direction: rtl;
-  font-family: 'Markazi Text', 'Amiri', serif;
-  border-top: 1px solid #e3dac7;
+  font-family: "Markazi Text", "Amiri", serif;
+
+  padding: 55px 24px 0;
+
+  border-top: 1px solid #e5dfd3;
 }
 
+/* ================================
+   MAIN FOOTER
+================================ */
+
 .footer-inner {
-  max-width: 1140px;
+  width: 100%;
+  max-width: 1050px;
+
   margin: 0 auto;
+
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: 32px;
+
+  /*
+    الترتيب من اليمين:
+    حكاية مكان | استكشف | المدن | روابط
+  */
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+
+  column-gap: 55px;
+
   text-align: right;
 }
+
+
+/* ================================
+   BRAND
+================================ */
 
 .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+
+  gap: 11px;
 }
 
 .brand-line {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  justify-content: flex-end;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 9px;
 }
 
 .brand-icon {
-  width: 34px;
-  height: 34px;
+  width: 37px;
+  height: 37px;
+
   border-radius: 8px;
-  background: #2f6f68;
-  color: #f2ede1;
+
+  background: #2f7069;
+  color: #f3eee3;
+
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 }
 
+.brand-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
 .brand-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.2;
   margin: 0;
+
+  font-size: 1.35rem;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  color: #302b26;
 }
 
 .brand-desc {
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: #6b6255;
   margin: 0;
-  max-width: 34ch;
-  margin-inline-start: auto;
+
+  max-width: 300px;
+
+  font-size: 0.88rem;
+
+  line-height: 1.8;
+
+  color: #70685c;
+}
+
+
+/* ================================
+   FOOTER COLUMNS
+================================ */
+
+.footer-col {
+  min-width: 0;
 }
 
 .col-title {
-  font-size: 1.05rem;
+  margin: 0 0 16px;
+
+  font-size: 0.98rem;
+
   font-weight: 700;
+
   line-height: 1.2;
-  margin: 0 0 14px;
+
+  color: #302b26;
 }
 
 .col-list {
   list-style: none;
+
   margin: 0;
   padding: 0;
+
   display: flex;
+
   flex-direction: column;
-  gap: 10px;
+
+  gap: 8px;
 }
 
 .col-list a,
 .link-button {
-  color: #6b6255;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-family: inherit;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
   display: inline-block;
-  transition: color 0.15s ease;
+
+  padding: 0;
+
+  margin: 0;
+
+  background: transparent;
+
+  border: none;
+
+  color: #776f63;
+
+  text-decoration: none;
+
+  font-family: inherit;
+
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
 }
 
 .col-list a:hover,
 .col-list a.router-link-active,
 .link-button:hover {
-  color: #2f6f68;
+  color: #2f7069;
 }
 
+
+/* ================================
+   BOTTOM LINE
+================================ */
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1050px;
+
+  margin: 55px auto 0;
+
+  padding: 23px 0 25px;
+
+  border-top: 1px solid #ded8cb;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 0.78rem;
+
+  line-height: 1.5;
+
+  color: #a39a8a;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
 @media (max-width: 860px) {
+
+  .site-footer {
+    padding-top: 45px;
+  }
+
   .footer-inner {
     grid-template-columns: 1fr 1fr;
+
+    column-gap: 40px;
+
+    row-gap: 35px;
   }
+
   .footer-brand {
     grid-column: 1 / -1;
   }
-}
 
-@media (max-width: 520px) {
-  .footer-inner {
-    grid-template-columns: 1fr;
+  .footer-bottom {
+    margin-top: 40px;
   }
 }
 
-.footer-bottom {
-  max-width: 1140px;
-  margin: 40px auto 0;
-  padding-top: 24px;
-  border-top: 1px solid #e3dac7;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-  color: #a89c86;
-}
+
+/* ================================
+   MOBILE
+================================ */
 
 @media (max-width: 520px) {
+
+  .site-footer {
+    padding: 40px 20px 0;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+
+    gap: 28px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .brand-desc {
+    max-width: 100%;
+  }
+
   .footer-bottom {
+    margin-top: 35px;
+
+    padding: 20px 0;
+
     flex-direction: column;
+
     gap: 8px;
+
     text-align: center;
   }
 }
 </style>
+
