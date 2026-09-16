@@ -1,11 +1,7 @@
 <script setup>
-const cities = [
-  { name: 'القاهرة', slug: 'cairo' },
-  { name: 'الجيزة', slug: 'giza' },
-  { name: 'الأقصر', slug: 'luxor' },
-  { name: 'أسوان', slug: 'aswan' },
-  { name: 'الإسكندرية', slug: 'alexandria' },
-]
+import data from '../../data.json'
+
+const cities = data.cities
 </script>
 
 <template>
@@ -39,16 +35,18 @@ const cities = [
       </nav>
 
       <!-- المدن -->
-      <nav class="footer-col" aria-label="المدن">
-        <h4 class="col-title">المدن</h4>
-        <ul class="col-list">
-          <li v-for="city in cities" :key="city.slug">
-            <router-link :to="`/cities/${city.slug}`">
-              {{ city.name }}
-            </router-link>
-          </li>
-        </ul>
-      </nav>
+<nav class="footer-col" aria-label="المدن">
+  <h4 class="col-title">المدن</h4>
+
+  <ul class="col-list">
+    <li v-for="city in cities" :key="city.id">
+      <router-link :to="`/cities/${city.id}`">
+        {{ city.name }}
+      </router-link>
+    </li>
+  </ul>
+</nav>
+
 
       <!-- روابط -->
       <nav class="footer-col" aria-label="روابط">
