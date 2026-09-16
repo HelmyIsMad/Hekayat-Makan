@@ -10,10 +10,15 @@ const error = ref('')
 onMounted(async () => {
   try {
     const res = await fetch(`${API}/mainCards`)
-    if (!res.ok) throw new Error('تعذر جلب البيانات')
+
+    if (!res.ok) {
+      throw new Error('تعذر جلب البيانات')
+    }
+
     places.value = await res.json()
   } catch (e) {
-    error.value = 'تعذر تحميل المعالم. تأكد من تشغيل خادم البيانات (npm run server).'
+    error.value =
+      'تعذر تحميل المعالم. تأكد من تشغيل خادم البيانات (npm run server).'
   } finally {
     loading.value = false
   }
@@ -21,38 +26,73 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- صفحة استكشف: نفس بطاقات أقسام الموقع لكن بكل المعالم (جلب من السيرفر) -->
+  <!-- رحمة: صفحة استكشف بكل المعالم -->
   <main class="page">
     <div class="section-header">
       <div>
         <span class="eyebrow">استكشف</span>
+
         <h2>كل المعالم</h2>
-        <p v-if="!loading && !error" class="count">{{ places.length }} معالم موثقة</p>
+
+        <p v-if="!loading && !error" class="count">
+          {{ places.length }} معالم موثقة
+        </p>
       </div>
     </div>
 
-    <div v-if="loading" class="state-box">جاري تحميل المعالم...</div>
-    <div v-else-if="error" class="state-box error">{{ error }}</div>
+    <!-- حالة التحميل -->
+    <div v-if="loading" class="state-box">
+      جاري تحميل المعالم...
+    </div>
 
+    <!-- حالة الخطأ -->
+    <div v-else-if="error" class="state-box error">
+      {{ error }}
+    </div>
+
+    <!-- كروت الأماكن -->
     <div v-else class="grid">
-      <article v-for="place in places" :key="place.id" class="card">
+      <router-link
+        v-for="place in places"
+        :key="place.id"
+        :to="`/explore/${place.id}`"
+        class="card"
+      >
         <div class="image-wrap">
-          <img :src="place.image" :alt="place.title" loading="lazy" />
-          <span class="badge">{{ place.badge }}</span>
+          <img
+            :src="place.image"
+            :alt="place.title"
+            loading="lazy"
+          />
+
+          <span class="badge">
+            {{ place.badge }}
+          </span>
         </div>
+
         <div class="card-body">
-          <span class="meta">{{ place.city }} · {{ place.era }}</span>
-          <h3>{{ place.title }}</h3>
-          <p>{{ place.description }}</p>
-          <span class="hours">🕐 {{ place.hours }}</span>
+          <span class="meta">
+            {{ place.city }} · {{ place.era }}
+          </span>
+
+          <h3>
+            {{ place.title }}
+          </h3>
+
+          <p>
+            {{ place.description }}
+          </p>
+
+          <span class="hours">
+            🕐 {{ place.hours }}
+          </span>
         </div>
-      </article>
+      </router-link>
     </div>
   </main>
 </template>
 
 <style scoped>
-/* نفس هوية ولون صفحة التصميم */
 .page {
   width: 100%;
   min-height: calc(100vh - 82px);
@@ -110,7 +150,7 @@ onMounted(async () => {
   gap: 24px;
 }
 
-/* نفس بطاقات أقسام الموقع */
+/* رحمة: الكارت أصبح لينك يفتح صفحة تفاصيل المكان */
 .card {
   display: block;
   background: #fff;
@@ -119,7 +159,9 @@ onMounted(async () => {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease;
 }
@@ -140,7 +182,9 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card:hover .image-wrap img {
