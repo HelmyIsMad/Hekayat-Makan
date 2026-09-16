@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const API = 'http://localhost:3000'
 
@@ -21,7 +22,6 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- صفحة استكشف: نفس بطاقات أقسام الموقع لكن بكل المعالم (جلب من السيرفر) -->
   <main class="page">
     <div class="section-header">
       <div>
@@ -35,7 +35,12 @@ onMounted(async () => {
     <div v-else-if="error" class="state-box error">{{ error }}</div>
 
     <div v-else class="grid">
-      <article v-for="place in places" :key="place.id" class="card">
+      <RouterLink
+        :to="`/place/${place.id}`"
+        v-for="place in places"
+        :key="place.id"
+        class="card"
+      >
         <div class="image-wrap">
           <img :src="place.image" :alt="place.title" loading="lazy" />
           <span class="badge">{{ place.badge }}</span>
@@ -46,7 +51,7 @@ onMounted(async () => {
           <p>{{ place.description }}</p>
           <span class="hours">🕐 {{ place.hours }}</span>
         </div>
-      </article>
+      </RouterLink>
     </div>
   </main>
 </template>
@@ -157,6 +162,7 @@ onMounted(async () => {
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
+  backdrop-filter: blur(3px);
 }
 
 .card-body {
