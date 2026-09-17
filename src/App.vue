@@ -1,6 +1,6 @@
 <script setup>
+import HeroSection from './Components/HeroSection.vue'
 import Navbar from './Components/Navbar.vue'
-// import HeroSection from './Components/HeroSection.vue'
 import SubscribeSection from './Components/SubscribeSection.vue'
 import Footer from './Components/Footer.vue'
 </script>
@@ -8,11 +8,8 @@ import Footer from './Components/Footer.vue'
 <template>
   <Navbar />
   <main>
-    <!-- <HeroSection /> -->
-    <router-view />
+    <HeroSection />
     <SubscribeSection />
-    
   </main>
-
   <Footer />
 </template>
