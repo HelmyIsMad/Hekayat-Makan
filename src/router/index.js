@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
  
-// الراوتات اللي أنا مسؤولة عنها فقط
+//  :الراوتات اللي أنا مسؤولة عنها فقط  ساندي
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import TermsOfUse from '../views/TermsOfUse.vue'
 import Search from '../views/Search.vue'
@@ -10,13 +10,11 @@ import Cities from '../views/Cities.vue'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import CityDetail from '../views/CityDetail.vue'
+
+
 const routes = [
   
-  //
-  // { path: '/explore', name: 'explore', component: Explore },
-  // { path: '/cities', name: 'cities', component: Cities },
-  // { path: '/about', name: 'about', component: About },
-  // ============================================
+  
 {
     
     path: '/',
