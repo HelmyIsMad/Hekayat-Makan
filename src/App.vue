@@ -6,9 +6,28 @@ import Footer from './Components/Footer.vue'
 
 <template>
   <Navbar />
-  <main>
-    <router-view />
+  <main class="page-fade-wrap">
+    <Transition name="page" mode="out-in">
+      <router-view />
+    </Transition>
     <SubscribeSection />
   </main>
   <Footer />
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>
