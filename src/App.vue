@@ -1,7 +1,5 @@
 <script setup>
-import HeroSection from './Components/HeroSection.vue'
 import Navbar from './Components/Navbar.vue'
-import WeeklyStory from './Components/WeeklyStory.vue'
 import SubscribeSection from './Components/SubscribeSection.vue'
 import Footer from './Components/Footer.vue'
 </script>
@@ -9,16 +7,30 @@ import Footer from './Components/Footer.vue'
 <template>
   <Navbar />
 
-  <main>
-    <!-- الرئيسية -->
-    <HeroSection />
+  <main class="page-fade-wrap">
+    <Transition name="page" mode="out-in">
+      <router-view />
+    </Transition>
 
-    <!-- حكاية الأسبوع -->
-    <WeeklyStory />
-
-    <!-- الاشتراك -->
     <SubscribeSection />
   </main>
 
   <Footer />
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>
