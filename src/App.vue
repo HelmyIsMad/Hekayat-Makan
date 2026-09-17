@@ -6,12 +6,15 @@ import Footer from './Components/Footer.vue'
 
 <template>
   <Navbar />
+
   <main class="page-fade-wrap">
     <Transition name="page" mode="out-in">
       <router-view />
     </Transition>
+
     <SubscribeSection />
   </main>
+
   <Footer />
 </template>
 
