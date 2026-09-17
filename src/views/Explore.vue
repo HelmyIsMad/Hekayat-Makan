@@ -1,58 +1,74 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import data from '../../data.json'
 
-const places = data.mainCards
+const API = 'http://localhost:3000'
+
+const places = ref([])
+const loading = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    const res = await fetch(`${API}/mainCards`)
+    if (!res.ok) throw new Error('تعذر جلب البيانات')
+    places.value = await res.json()
+  } catch (e) {
+    error.value = 'تعذر تحميل المعالم. تأكد من تشغيل خادم البيانات (npm run server).'
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <template>
   <main class="page">
-    <section class="explore-section">
-      <div class="section-header">
-        <div>
-          <span class="eyebrow">استكشف</span>
-          <h2>كل الأماكن ({{ places.length }})</h2>
-        </div>
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">استكشف</span>
+        <h2>كل المعالم</h2>
+        <p v-if="!loading && !error" class="count">{{ places.length }} معالم موثقة</p>
       </div>
+    </div>
 
-      <div class="grid">
-        <RouterLink
-          :to="`/place/${place.id}`"
-          v-for="place in places"
-          :key="place.id"
-          class="card"
-        >
-          <div class="image-wrap">
-            <img :src="place.image" :alt="place.title" />
-            <span class="badge">{{ place.badge }}</span>
-          </div>
-          <div class="card-body">
-            <span class="meta">{{ place.city }} · {{ place.era }}</span>
-            <h3>{{ place.title }}</h3>
-            <p>{{ place.description }}</p>
-            <span class="hours">🕐 {{ place.hours }}</span>
-          </div>
-        </RouterLink>
-      </div>
-    </section>
+    <div v-if="loading" class="state-box">جاري تحميل المعالم...</div>
+    <div v-else-if="error" class="state-box error">{{ error }}</div>
+
+    <div v-else class="grid">
+      <RouterLink
+        :to="`/place/${place.id}`"
+        v-for="place in places"
+        :key="place.id"
+        class="card"
+      >
+        <div class="image-wrap">
+          <img :src="place.image" :alt="place.title" loading="lazy" />
+          <span class="badge">{{ place.badge }}</span>
+        </div>
+        <div class="card-body">
+          <span class="meta">{{ place.city }} · {{ place.era }}</span>
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+          <span class="hours">🕐 {{ place.hours }}</span>
+        </div>
+      </RouterLink>
+    </div>
   </main>
 </template>
 
 <style scoped>
+/* نفس هوية ولون صفحة التصميم */
 .page {
   width: 100%;
   min-height: calc(100vh - 82px);
   background: #F8F4ED;
-}
-
-.explore-section {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 64px 24px;
+  direction: rtl;
 }
 
 .section-header {
-  margin-bottom: 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 24px 0;
 }
 
 .eyebrow {
@@ -65,14 +81,41 @@ const places = data.mainCards
 .section-header h2 {
   font-size: 2rem;
   margin: 0;
+  color: #241a10;
+}
+
+.count {
+  margin: 8px 0 0;
+  color: #6b573f;
+}
+
+.state-box {
+  max-width: 1180px;
+  margin: 32px auto;
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b573f;
+  border: 1px dashed #d9cfba;
+  border-radius: 12px;
+  background: #f9f6ee;
+}
+
+.state-box.error {
+  color: #9a3b26;
+  border-color: #e0b3a6;
+  background: #faf0ec;
 }
 
 .grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
+/* نفس بطاقات أقسام الموقع */
 .card {
   display: block;
   background: #fff;
@@ -138,6 +181,11 @@ const places = data.mainCards
 .card-body h3 {
   margin: 0;
   font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-body h3 {
+  color: #1e4a45;
 }
 
 .card-body p {
