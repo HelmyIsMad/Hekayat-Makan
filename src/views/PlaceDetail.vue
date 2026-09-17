@@ -1,9 +1,25 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
-import data from '../../data.json'
+
+const API = 'http://localhost:3000'
 
 const route = useRoute()
-const place = data.mainCards.find(p => String(p.id) === route.params.id)
+const place = ref(null)
+const loading = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    const res = await fetch(`${API}/mainCards/${route.params.id}`)
+    if (!res.ok) throw new Error('تعذر جلب البيانات')
+    place.value = await res.json()
+  } catch (e) {
+    error.value = 'تعذر تحميل بيانات المكان. تأكد من تشغيل خادم البيانات (npm run server).'
+  } finally {
+    loading.value = false
+  }
+})
 
 const tips = {
   'أثري': [
@@ -27,11 +43,20 @@ const tips = {
   ],
 }
 
-const placeTips = place ? (tips[place.badge] || []) : []
+const placeTips = () => (place.value ? tips[place.value.badge] || [] : [])
 </script>
 
 <template>
-  <section v-if="place" class="place-detail">
+  <section v-if="loading" class="place-detail state-box">
+    جاري تحميل بيانات المكان...
+  </section>
+
+  <section v-else-if="error" class="place-detail state-box error">
+    {{ error }}
+    <RouterLink to="/" class="back-link">← رجوع للرئيسية</RouterLink>
+  </section>
+
+  <section v-else-if="place" class="place-detail">
     <div class="hero" :style="{ backgroundImage: `url(${place.image})` }">
       <RouterLink to="/" class="back-link">← رجوع للرئيسية</RouterLink>
 
@@ -44,10 +69,10 @@ const placeTips = place ? (tips[place.badge] || []) : []
       </div>
     </div>
 
-    <div v-if="placeTips.length" class="tips-box">
+    <div v-if="placeTips().length" class="tips-box">
       <h2>نصايح للزوار</h2>
       <ul>
-        <li v-for="(tip, i) in placeTips" :key="i">{{ tip }}</li>
+        <li v-for="(tip, i) in placeTips()" :key="i">{{ tip }}</li>
       </ul>
     </div>
   </section>
@@ -61,6 +86,22 @@ const placeTips = place ? (tips[place.badge] || []) : []
 <style scoped>
 .place-detail {
   width: 100%;
+}
+
+.state-box {
+  text-align: center;
+  padding: 80px 24px;
+  color: #6b573f;
+}
+
+.state-box.error {
+  color: #9a3b26;
+}
+
+.state-box .back-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #1e4a45;
 }
 
 .hero {
