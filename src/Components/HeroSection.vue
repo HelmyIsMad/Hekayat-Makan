@@ -48,7 +48,7 @@
 
     </div>
 
-    <!-- مؤشر التمرير -->
+
     <a href="#next-section" class="scroll-indicator">
       <span>استمر في الاستكشاف</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -114,7 +114,6 @@ onMounted(async () => {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* ===== أنيميشن fade-up ===== */
 .fade-up {
   opacity: 0;
   transform: translateY(25px);
@@ -128,7 +127,7 @@ onMounted(async () => {
   }
 }
 
-/* ===== حركة عند المرور على الكلام ===== */
+
 .hover-text {
   transition: transform 0.3s ease, text-shadow 0.3s ease;
   cursor: default;
@@ -139,7 +138,6 @@ onMounted(async () => {
   text-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== العناوين ===== */
 .eyebrow {
   font-family: 'Tajawal', sans-serif;
   font-weight: 500;
@@ -176,7 +174,6 @@ onMounted(async () => {
   color: #e5dcc3;
 }
 
-/* ===== مربع البحث ===== */
 .search-group {
   transition: transform 0.3s ease;
 }
@@ -203,7 +200,6 @@ onMounted(async () => {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* ===== الأزرار ===== */
 .btn-brand {
   background-color: #0f6d66;
   border-color: #0f6d66;
@@ -241,7 +237,6 @@ onMounted(async () => {
   opacity: 1 !important;
 }
 
-/* تأثير الـ tilt على زرارين الاستكشاف فقط */
 .btn-tilt {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   will-change: transform;
@@ -252,7 +247,6 @@ onMounted(async () => {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* ===== مؤشر التمرير ===== */
 .scroll-indicator {
   position: absolute;
   bottom: 28px;
