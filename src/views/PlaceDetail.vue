@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
 
 const API = 'http://localhost:3000'
 
@@ -10,10 +10,40 @@ const place = ref(null)
 const loading = ref(true)
 const error = ref('')
 
+// رحمة: نصايح للزوار حسب نوع المكان
+const tips = {
+  أثري: [
+    'الأفضل تزوري الموقع بدري الصبح قبل الزحمة والحر',
+    'خدي معاكي حاجة تغطي بيها من الشمس ومياه كفاية',
+    'ينفع تحجزي جولة بمرشد سياحي عشان تعرفي تفاصيل أكتر',
+  ],
+
+  ديني: [
+    'الزي المحتشم مطلوب عند الدخول',
+    'احترمي مواعيد الصلاة لو زرتي وقت الأذان',
+    'اسألي عن قواعد التصوير جوه قبل ما تبدئي',
+  ],
+
+  معماري: [
+    'وقت الغروب بيدي أحلى إضاءة للتصوير',
+    'فيه جولات متخصصة بتشرح تفاصيل العمارة والزخارف',
+  ],
+
+  متحف: [
+    'خدي بالك، هتحتاجي كذا ساعة عشان تشوفي المكان كويس',
+    'فيه Audio Guide متاح بلغات مختلفة في الغالب',
+    'التصوير بالفلاش ممنوع في أغلب الأجزاء',
+  ],
+}
+
+const placeTips = ref([])
+
 onMounted(async () => {
   try {
+    // رحمة: بناخد الـ id من الرابط
     const id = route.params.id
 
+    // رحمة: بنجيب بيانات المكان من json-server
     const res = await fetch(`${API}/mainCards/${id}`)
 
     if (!res.ok) {
@@ -21,6 +51,9 @@ onMounted(async () => {
     }
 
     place.value = await res.json()
+
+    // رحمة: بنحدد النصايح المناسبة لنوع المكان
+    placeTips.value = tips[place.value.badge] || []
   } catch (e) {
     error.value = 'تعذر تحميل تفاصيل المكان.'
   } finally {
@@ -32,19 +65,20 @@ onMounted(async () => {
 <template>
   <main class="page">
 
-    <!-- Loading -->
+    <!-- رحمة: حالة تحميل البيانات -->
     <div v-if="loading" class="state-box">
       جاري تحميل تفاصيل المكان...
     </div>
 
-    <!-- Error -->
+    <!-- رحمة: لو حصل خطأ أثناء تحميل البيانات -->
     <div v-else-if="error" class="state-box error">
       {{ error }}
     </div>
 
-    <!-- Place Details -->
+    <!-- رحمة: تفاصيل المكان -->
     <section v-else-if="place" class="details">
 
+      <!-- صورة المكان -->
       <div class="hero-image">
         <img
           :src="place.image"
@@ -56,6 +90,7 @@ onMounted(async () => {
         </span>
       </div>
 
+      <!-- محتوى التفاصيل -->
       <div class="content">
 
         <div class="meta">
@@ -67,34 +102,59 @@ onMounted(async () => {
         </h1>
 
         <p class="description">
-          {{ place.description }}
+          {{ place.story || place.description }}
         </p>
 
+        <!-- معلومات المكان -->
         <div class="info">
 
           <div class="info-item">
             <span class="label">المدينة</span>
-            <span class="value">{{ place.city }}</span>
+            <span class="value">
+              {{ place.city }}
+            </span>
           </div>
 
           <div class="info-item">
             <span class="label">العصر</span>
-            <span class="value">{{ place.era }}</span>
+            <span class="value">
+              {{ place.era }}
+            </span>
           </div>
 
           <div class="info-item">
             <span class="label">مواعيد الزيارة</span>
-            <span class="value">{{ place.hours }}</span>
+            <span class="value">
+              {{ place.hours }}
+            </span>
           </div>
 
         </div>
 
-        <router-link
+        <!-- رحمة: نصايح للزوار -->
+        <div
+          v-if="placeTips.length"
+          class="tips-box"
+        >
+          <h2>نصايح للزوار</h2>
+
+          <ul>
+            <li
+              v-for="(tip, index) in placeTips"
+              :key="index"
+            >
+              {{ tip }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- الرجوع لصفحة استكشف -->
+        <RouterLink
           to="/explore"
           class="back-button"
         >
           العودة إلى استكشف
-        </router-link>
+        </RouterLink>
 
       </div>
 
@@ -196,6 +256,31 @@ h1 {
   font-weight: 600;
 }
 
+/* رحمة: صندوق نصايح الزوار */
+.tips-box {
+  margin-bottom: 35px;
+  background: #F1EAD9;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.tips-box h2 {
+  margin: 0 0 16px;
+  color: #30251F;
+  font-size: 21px;
+}
+
+.tips-box ul {
+  margin: 0;
+  padding-right: 22px;
+}
+
+.tips-box li {
+  color: #3a2f22;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
 .back-button {
   display: inline-block;
   background: #176F73;
@@ -243,6 +328,3 @@ h1 {
 
   .info {
     grid-template-columns: 1fr;
-  }
-}
-</style>

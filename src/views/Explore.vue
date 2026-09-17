@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const API = 'http://localhost:3000'
 
@@ -52,7 +53,7 @@ onMounted(async () => {
 
     <!-- كروت الأماكن -->
     <div v-else class="grid">
-      <router-link
+      <RouterLink
         v-for="place in places"
         :key="place.id"
         :to="`/explore/${place.id}`"
@@ -87,7 +88,7 @@ onMounted(async () => {
             🕐 {{ place.hours }}
           </span>
         </div>
-      </router-link>
+      </RouterLink>
     </div>
   </main>
 </template>
@@ -201,6 +202,7 @@ onMounted(async () => {
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
+  backdrop-filter: blur(3px);
 }
 
 .card-body {
