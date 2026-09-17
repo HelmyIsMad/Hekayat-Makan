@@ -1,6 +1,8 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
+const API = 'http://localhost:3000'
 
 const route = useRoute()
 const router = useRouter()
@@ -8,20 +10,35 @@ const router = useRouter()
 const query = ref(route.query.q || '')
 const submittedQuery = ref(route.query.q || '')
 
-// لسه هيتغير
-const places = [
-  { name: 'أهرامات الجيزة', city: 'الجيزة', slug: 'giza-pyramids' },
-  { name: 'تمثال أبو الهول', city: 'الجيزة', slug: 'sphinx' },
-  { name: 'معبد الكرنك', city: 'الأقصر', slug: 'karnak' },
-  { name: 'معبد أبو سمبل', city: 'أسوان', slug: 'abu-simbel' },
-  { name: 'مسجد محمد علي', city: 'القاهرة', slug: 'mohamed-ali-mosque' },
-  { name: 'مكتبة الإسكندرية', city: 'الإسكندرية', slug: 'bibliotheca-alexandrina' },
-]
+const places = ref([])
+const loading = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    const res = await fetch(`${API}/mainCards`)
+    if (!res.ok) throw new Error('تعذر جلب البيانات')
+    const data = await res.json()
+    places.value = data.map((p) => ({
+      id: p.id,
+      name: p.title,
+      city: p.city,
+      era: p.era,
+      badge: p.badge,
+    }))
+  } catch (e) {
+    error.value = 'تعذر تحميل نتائج البحث. تأكد من تشغيل خادم البيانات (npm run server).'
+  } finally {
+    loading.value = false
+  }
+})
 
 const results = computed(() => {
   const q = submittedQuery.value.trim()
   if (!q) return []
-  return places.filter((p) => p.name.includes(q) || p.city.includes(q))
+  return places.value.filter(
+    (p) => p.name.includes(q) || p.city.includes(q) || (p.era && p.era.includes(q))
+  )
 })
 
 function runSearch() {
@@ -64,7 +81,10 @@ watch(
         </div>
       </div>
 
-      <div v-if="!submittedQuery.trim()" class="hint-box">
+      <div v-if="loading" class="hint-box">جاري تحميل البيانات...</div>
+      <div v-else-if="error" class="hint-box">{{ error }}</div>
+
+      <div v-else-if="!submittedQuery.trim()" class="hint-box">
         اكتب كلمةً في الأعلى لبدء البحث في معالم مصر.
       </div>
 
@@ -73,11 +93,11 @@ watch(
       </div>
 
       <ul v-else class="results-list">
-        <li v-for="place in results" :key="place.slug">
-          <div class="result-link">
+        <li v-for="place in results" :key="place.id">
+          <router-link :to="`/explore/${place.id}`" class="result-link">
             <span class="result-name">{{ place.name }}</span>
-            <span class="result-city">{{ place.city }}</span>
-          </div>
+            <span class="result-city">{{ place.city }} · {{ place.era }}</span>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -195,4 +215,3 @@ h1 {
   font-size: 0.9rem;
 }
 </style>
-
