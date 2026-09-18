@@ -16,18 +16,23 @@ const places = data.mainCards
     </div>
 
     <div class="grid">
-      	<article v-for="place in places" :key="place.id" class="card">
-			<div class="image-wrap">
-				<img :src="place.image" :alt="place.title" />
-				<span class="badge">{{ place.badge }}</span>
-			</div>
-			<div class="card-body">
-				<span class="meta">{{ place.city }} · {{ place.era }}</span>
-				<h3>{{ place.title }}</h3>
-				<p>{{ place.description }}</p>
-				<span class="hours">🕐 {{ place.hours }}</span>
-			</div>
-		</article>
+      <RouterLink
+        :to="`/place/${place.id}`"
+        v-for="place in places"
+        :key="place.id"
+        class="card"
+      >
+        <div class="image-wrap">
+          <img :src="place.image" :alt="place.title" />
+          <span class="badge">{{ place.badge }}</span>
+        </div>
+        <div class="card-body">
+          <span class="meta">{{ place.city }} · {{ place.era }}</span>
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+          <span class="hours">🕐 {{ place.hours }}</span>
+        </div>
+      </RouterLink>
     </div>
   </section>
 </template>

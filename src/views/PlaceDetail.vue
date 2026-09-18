@@ -1,333 +1,182 @@
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
-
-const API = 'http://localhost:3000'
+import data from '../../data.json'
 
 const route = useRoute()
+const place = data.mainCards.find(p => String(p.id) === route.params.id)
 
-const place = ref(null)
-const loading = ref(true)
-const error = ref('')
-
-// رحمة: نصايح للزوار حسب نوع المكان
 const tips = {
-  أثري: [
+  'أثري': [
     'الأفضل تزوري الموقع بدري الصبح قبل الزحمة والحر',
     'خدي معاكي حاجة تغطي بيها من الشمس ومياه كفاية',
     'ينفع تحجزي جولة بمرشد سياحي عشان تعرفي تفاصيل أكتر',
   ],
-
-  ديني: [
+  'ديني': [
     'الزي المحتشم مطلوب عند الدخول',
     'احترمي مواعيد الصلاة لو زرتي وقت الأذان',
     'اسألي عن قواعد التصوير جوه قبل ما تبدئي',
   ],
-
-  معماري: [
+  'معماري': [
     'وقت الغروب بيدي أحلى إضاءة للتصوير',
     'فيه جولات متخصصة بتشرح تفاصيل العمارة والزخارف',
   ],
-
-  متحف: [
+  'متحف': [
     'خدي بالك، هتحتاجي كذا ساعة عشان تشوفي المكان كويس',
     'فيه Audio Guide متاح بلغات مختلفة في الغالب',
     'التصوير بالفلاش ممنوع في أغلب الأجزاء',
   ],
 }
 
-const placeTips = ref([])
-
-onMounted(async () => {
-  try {
-    // رحمة: بناخد الـ id من الرابط
-    const id = route.params.id
-
-    // رحمة: بنجيب بيانات المكان من json-server
-    const res = await fetch(`${API}/mainCards/${id}`)
-
-    if (!res.ok) {
-      throw new Error('تعذر جلب بيانات المكان')
-    }
-
-    place.value = await res.json()
-
-    // رحمة: بنحدد النصايح المناسبة لنوع المكان
-    placeTips.value = tips[place.value.badge] || []
-  } catch (e) {
-    error.value = 'تعذر تحميل تفاصيل المكان.'
-  } finally {
-    loading.value = false
-  }
-})
+const placeTips = place ? (tips[place.badge] || []) : []
 </script>
 
 <template>
-  <main class="page">
+  <section v-if="place" class="place-detail">
+    <RouterLink to="/explore" class="back-link">← رجوع لكل الأماكن</RouterLink>
 
-    <!-- رحمة: حالة تحميل البيانات -->
-    <div v-if="loading" class="state-box">
-      جاري تحميل تفاصيل المكان...
+    <div class="hero-image">
+      <img :src="place.image" :alt="place.title" />
+      <span class="badge">{{ place.badge }}</span>
     </div>
 
-    <!-- رحمة: لو حصل خطأ أثناء تحميل البيانات -->
-    <div v-else-if="error" class="state-box error">
-      {{ error }}
+    <div class="content">
+      <p class="meta">{{ place.city }} · {{ place.era }}</p>
+      <h1>{{ place.title }}</h1>
+
+      <p class="intro">
+        {{ place.title }} من أبرز المعالم في {{ place.city }}، ويرجع لعصر
+        {{ place.era }}. {{ place.description }}
+      </p>
+
+      <div class="info-box">
+        <span class="info-icon">🕐</span>
+        <div>
+          <strong>مواعيد الزيارة</strong>
+          <p>{{ place.hours }}</p>
+        </div>
+      </div>
+
+      <div v-if="placeTips.length" class="tips-box">
+        <h2>نصايح للزوار</h2>
+        <ul>
+          <li v-for="(tip, i) in placeTips" :key="i">{{ tip }}</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <!-- رحمة: تفاصيل المكان -->
-    <section v-else-if="place" class="details">
-
-      <!-- صورة المكان -->
-      <div class="hero-image">
-        <img
-          :src="place.image"
-          :alt="place.title"
-        />
-
-        <span class="badge">
-          {{ place.badge }}
-        </span>
-      </div>
-
-      <!-- محتوى التفاصيل -->
-      <div class="content">
-
-        <div class="meta">
-          {{ place.city }} · {{ place.era }}
-        </div>
-
-        <h1>
-          {{ place.title }}
-        </h1>
-
-        <p class="description">
-          {{ place.story || place.description }}
-        </p>
-
-        <!-- معلومات المكان -->
-        <div class="info">
-
-          <div class="info-item">
-            <span class="label">المدينة</span>
-            <span class="value">
-              {{ place.city }}
-            </span>
-          </div>
-
-          <div class="info-item">
-            <span class="label">العصر</span>
-            <span class="value">
-              {{ place.era }}
-            </span>
-          </div>
-
-          <div class="info-item">
-            <span class="label">مواعيد الزيارة</span>
-            <span class="value">
-              {{ place.hours }}
-            </span>
-          </div>
-
-        </div>
-
-        <!-- رحمة: نصايح للزوار -->
-        <div
-          v-if="placeTips.length"
-          class="tips-box"
-        >
-          <h2>نصايح للزوار</h2>
-
-          <ul>
-            <li
-              v-for="(tip, index) in placeTips"
-              :key="index"
-            >
-              {{ tip }}
-            </li>
-          </ul>
-        </div>
-
-        <!-- الرجوع لصفحة استكشف -->
-        <RouterLink
-          to="/explore"
-          class="back-button"
-        >
-          العودة إلى استكشف
-        </RouterLink>
-
-      </div>
-
-    </section>
-
-  </main>
+  <section v-else class="place-detail">
+    <p>هذا المكان غير موجود.</p>
+    <RouterLink to="/explore" class="back-link">← رجوع لكل الأماكن</RouterLink>
+  </section>
 </template>
 
 <style scoped>
-.page {
-  min-height: calc(100vh - 82px);
-  background: #F8F4ED;
-  direction: rtl;
-  padding: 50px 24px 80px;
+.place-detail {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
 }
 
-.details {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #ffffff;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 45px rgba(48, 37, 31, 0.08);
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #1e4a45;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .hero-image {
   position: relative;
-  width: 100%;
-  height: 480px;
+  border-radius: 14px;
   overflow: hidden;
+  margin-bottom: 28px;
 }
 
 .hero-image img {
   width: 100%;
-  height: 100%;
+  height: 380px;
   object-fit: cover;
+  display: block;
 }
 
 .badge {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  background: rgba(255, 255, 255, 0.94);
+  top: 16px;
+  right: 16px;
+  background: #fff;
   color: #241a10;
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 0.8rem;
   font-weight: 700;
-}
-
-.content {
-  padding: 40px 50px 50px;
 }
 
 .meta {
   color: #6b573f;
-  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 h1 {
-  margin: 0 0 20px;
+  font-size: 2.1rem;
+  margin: 0 0 18px;
   color: #241a10;
-  font-size: 38px;
 }
 
-.description {
-  color: #6b573f;
-  font-size: 17px;
-  line-height: 1.9;
-  margin-bottom: 35px;
+.intro {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #3a2f22;
+  margin-bottom: 28px;
 }
 
-.info {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-bottom: 35px;
-}
-
-.info-item {
-  background: #F8F4ED;
-  border-radius: 14px;
-  padding: 18px;
+.info-box {
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  gap: 14px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #e2d8c4;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
 }
 
-.label {
-  color: #8b8178;
-  font-size: 13px;
+.info-icon {
+  font-size: 1.4rem;
 }
 
-.value {
-  color: #30251F;
-  font-size: 16px;
-  font-weight: 600;
+.info-box strong {
+  display: block;
+  margin-bottom: 4px;
 }
 
-/* رحمة: صندوق نصايح الزوار */
+.info-box p {
+  margin: 0;
+  color: #6b573f;
+}
+
 .tips-box {
-  margin-bottom: 35px;
-  background: #F1EAD9;
-  border-radius: 14px;
+  background: #f1ead9;
+  border-radius: 10px;
   padding: 24px;
 }
 
 .tips-box h2 {
-  margin: 0 0 16px;
-  color: #30251F;
-  font-size: 21px;
+  font-size: 1.2rem;
+  margin: 0 0 14px;
 }
 
 .tips-box ul {
   margin: 0;
-  padding-right: 22px;
+  padding-inline-start: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .tips-box li {
   color: #3a2f22;
-  line-height: 1.8;
-  margin-bottom: 8px;
-}
-
-.back-button {
-  display: inline-block;
-  background: #176F73;
-  color: white;
-  text-decoration: none;
-  padding: 13px 24px;
-  border-radius: 12px;
-  transition: 0.25s ease;
-}
-
-.back-button:hover {
-  background: #125b5f;
-  transform: translateY(-2px);
-}
-
-.state-box {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 50px 20px;
-  text-align: center;
-  color: #6b573f;
-  border: 1px dashed #d9cfba;
-  border-radius: 16px;
-  background: #ffffff;
-}
-
-.state-box.error {
-  color: #9a3b26;
-  border-color: #e0b3a6;
-  background: #faf0ec;
-}
-
-@media (max-width: 700px) {
-  .hero-image {
-    height: 300px;
-  }
-
-  .content {
-    padding: 30px 25px;
-  }
-
-  h1 {
-    font-size: 30px;
-  }
-
-  .info {
-    grid-template-columns: 1fr;
-  }
+  line-height: 1.6;
 }
 </style>

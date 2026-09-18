@@ -46,6 +46,12 @@ const routes = [
   props: true,
 },
   {
+    path: '/place/:id',
+    name: 'place-detail',
+    component: PlaceDetail,
+    props: true,
+  },
+  {
     
     path: '/about',
     name: 'about',
