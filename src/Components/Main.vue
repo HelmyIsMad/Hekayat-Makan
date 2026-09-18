@@ -6,14 +6,16 @@ const places = data.mainCards.slice(0, 3)
 </script>
 
 <template>
-  <section class="main-section">
+  <section class="main-section" dir="rtl">
     <div class="section-header">
       <div>
         <span class="eyebrow">أماكن مختارة</span>
         <h2>معالم لا تفوّت زيارتها</h2>
         <div class="ornament">
           <span></span>
-          <svg viewBox="0 0 24 24" class="ornament-icon"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.8 L6.5 21 L8.5 13.5 L3 9 L10 9 Z" /></svg>
+          <svg viewBox="0 0 24 24" class="ornament-icon">
+            <path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.8 L6.5 21 L8.5 13.5 L3 9 L10 9 Z" />
+          </svg>
           <span></span>
         </div>
       </div>
@@ -161,6 +163,7 @@ const places = data.mainCards.slice(0, 3)
   border: 1px solid transparent;
   background: linear-gradient(135deg, #b8863b, transparent 30%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;

@@ -183,6 +183,7 @@ onMounted(async () => {
   border: 1px solid transparent;
   background: linear-gradient(135deg, #b8863b, transparent 30%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
