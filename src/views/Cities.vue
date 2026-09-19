@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-
-const API = 'https://hekayat-makan-api-production.up.railway.app/api'
+import { apiFetch } from '../utils/api.js'
 
 const cities = ref([])
 const loading = ref(true)
@@ -9,11 +8,9 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const res = await fetch(`${API}/cities`)
-    if (!res.ok) throw new Error('تعذر جلب البيانات')
-    cities.value = await res.json()
+    cities.value = await apiFetch('/cities')
   } catch (e) {
-    error.value = 'تعذر تحميل المدن. تأكد من تشغيل خادم البيانات (npm run server).'
+    error.value = 'تعذر تحميل المدن.'
   } finally {
     loading.value = false
   }

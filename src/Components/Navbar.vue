@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const navQuery = ref('')
+function onNavSearch() {
+  if (navQuery.value.trim()) router.push({ path: '/search', query: { q: navQuery.value.trim() } })
+}
+</script>
+
 <template>
   <!-- رحمة: ده الـ Navbar الرئيسي للمشروع -->
   <nav class="navbar">
@@ -133,8 +143,10 @@
 
           <!-- رحمة: حقل البحث عن مكان أو مدينة -->
           <input
+            v-model="navQuery"
             type="text"
             placeholder="ابحث عن مكان أو مدينة..."
+            @keydown.enter="onNavSearch"
           />
 
         </div>
