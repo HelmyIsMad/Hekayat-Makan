@@ -7,7 +7,6 @@ const cities = data.cities
 <template>
   <footer class="site-footer">
     <div class="footer-inner">
-      <!-- شعار حكاية مكان -->
       <div class="footer-brand">
         <div class="brand-line">
           <span class="brand-icon">
@@ -23,7 +22,6 @@ const cities = data.cities
         </p>
       </div>
 
-      <!-- استكشف -->
       <nav class="footer-col" aria-label="استكشف">
         <h4 class="col-title">استكشف</h4>
         <ul class="col-list">
@@ -34,21 +32,17 @@ const cities = data.cities
         </ul>
       </nav>
 
-      <!-- المدن -->
-<nav class="footer-col" aria-label="المدن">
-  <h4 class="col-title">المدن</h4>
+      <nav class="footer-col" aria-label="المدن">
+        <h4 class="col-title">المدن</h4>
+        <ul class="col-list">
+          <li v-for="city in cities" :key="city.id">
+            <router-link :to="`/cities/${city.id}`">
+              {{ city.name }}
+            </router-link>
+          </li>
+        </ul>
+      </nav>
 
-  <ul class="col-list">
-    <li v-for="city in cities" :key="city.id">
-      <router-link :to="`/cities/${city.id}`">
-        {{ city.name }}
-      </router-link>
-    </li>
-  </ul>
-</nav>
-
-
-      <!-- روابط -->
       <nav class="footer-col" aria-label="روابط">
         <h4 class="col-title">روابط</h4>
         <ul class="col-list">
@@ -68,218 +62,162 @@ const cities = data.cities
 
 <style scoped>
 .site-footer {
-  background: #f3eee3;
+  background: #f4efe6;
   color: #332e28;
   direction: rtl;
-  font-family: "Markazi Text", "Amiri", serif;
-
-  padding: 55px 24px 0;
-
-  border-top: 1px solid #e5dfd3;
+  font-family: 'Markazi Text', 'Amiri', serif;
+  padding: 70px clamp(16px, 4vw, 48px) 0;
+  border-top: 1px solid #e2d8c4;
+  position: relative;
 }
-
-/* ================================
-   MAIN FOOTER
-================================ */
 
 .footer-inner {
   width: 100%;
-  max-width: 1050px;
-
+  max-width: 1300px;
   margin: 0 auto;
-
   display: grid;
-
-  /*
-    الترتيب من اليمين:
-    حكاية مكان | استكشف | المدن | روابط
-  */
-  grid-template-columns: 1.8fr 1fr 1fr 1fr;
-
-  column-gap: 55px;
-
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  column-gap: 50px;
   text-align: right;
 }
-
-
-/* ================================
-   BRAND
-================================ */
 
 .footer-brand {
   display: flex;
   flex-direction: column;
-
-  gap: 11px;
+  gap: 14px;
 }
 
 .brand-line {
   display: flex;
   align-items: center;
-
   justify-content: flex-start;
-
-  gap: 9px;
+  gap: 12px;
 }
 
 .brand-icon {
-  width: 37px;
-  height: 37px;
-
-  border-radius: 8px;
-
-  background: #2f7069;
-  color: #f3eee3;
-
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #1e4a45;
+  color: #fffdf8;
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(30, 74, 69, 0.2);
 }
 
 .brand-icon svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
 }
 
 .brand-name {
   margin: 0;
-
-  font-size: 1.35rem;
-
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 1.85rem;
   font-weight: 700;
-
   line-height: 1.2;
-
-  color: #302b26;
+  color: #241a10;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
 }
 
 .brand-desc {
   margin: 0;
-
-  max-width: 300px;
-
-  font-size: 0.88rem;
-
-  line-height: 1.8;
-
-  color: #70685c;
+  max-width: 320px;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: #6b573f;
 }
-
-
-/* ================================
-   FOOTER COLUMNS
-================================ */
 
 .footer-col {
   min-width: 0;
 }
 
 .col-title {
-  margin: 0 0 16px;
-
-  font-size: 0.98rem;
-
+  margin: 0 0 18px;
+  font-size: 1.1rem;
   font-weight: 700;
-
   line-height: 1.2;
+  color: #241a10;
+  position: relative;
+  padding-bottom: 6px;
+}
 
-  color: #302b26;
+.col-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 2px;
+  background: #b8863b;
 }
 
 .col-list {
   list-style: none;
-
   margin: 0;
   padding: 0;
-
   display: flex;
-
   flex-direction: column;
-
-  gap: 8px;
+  gap: 10px;
 }
 
 .col-list a,
 .link-button {
   display: inline-block;
-
   padding: 0;
-
   margin: 0;
-
   background: transparent;
-
   border: none;
-
-  color: #776f63;
-
+  color: #6b573f;
   text-decoration: none;
-
   font-family: inherit;
-
-  font-size: 0.88rem;
-
+  font-size: 0.95rem;
   line-height: 1.5;
-
   cursor: pointer;
-
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .col-list a:hover,
 .col-list a.router-link-active,
 .link-button:hover {
-  color: #2f7069;
+  color: #1e4a45;
+  transform: translateX(-3px);
 }
 
-
-/* ================================
-   BOTTOM LINE
-================================ */
+.col-list a.router-link-active {
+  font-weight: 700;
+  color: #b8863b;
+}
 
 .footer-bottom {
   width: 100%;
-  max-width: 1050px;
-
-  margin: 55px auto 0;
-
-  padding: 23px 0 25px;
-
-  border-top: 1px solid #ded8cb;
-
+  max-width: 1300px;
+  margin: 60px auto 0;
+  padding: 24px 0 28px;
+  border-top: 1px solid #e5dfd3;
   display: flex;
-
-  justify-content: space-between;
-
+  justify-content: center;
   align-items: center;
-
-  font-size: 0.78rem;
-
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
   line-height: 1.5;
-
-  color: #a39a8a;
+  color: #8c785f;
+  text-align: center;
 }
 
-
-/* ================================
-   TABLET
-================================ */
-
 @media (max-width: 860px) {
-
   .site-footer {
-    padding-top: 45px;
+    padding-top: 50px;
   }
 
   .footer-inner {
     grid-template-columns: 1fr 1fr;
-
     column-gap: 40px;
-
-    row-gap: 35px;
+    row-gap: 40px;
   }
 
   .footer-brand {
@@ -287,25 +225,18 @@ const cities = data.cities
   }
 
   .footer-bottom {
-    margin-top: 40px;
+    margin-top: 45px;
   }
 }
 
-
-/* ================================
-   MOBILE
-================================ */
-
 @media (max-width: 520px) {
-
   .site-footer {
-    padding: 40px 20px 0;
+    padding: 40px 16px 0;
   }
 
   .footer-inner {
     grid-template-columns: 1fr;
-
-    gap: 28px;
+    gap: 32px;
   }
 
   .footer-brand {
@@ -318,15 +249,10 @@ const cities = data.cities
 
   .footer-bottom {
     margin-top: 35px;
-
     padding: 20px 0;
-
     flex-direction: column;
-
     gap: 8px;
-
     text-align: center;
   }
 }
 </style>
-
