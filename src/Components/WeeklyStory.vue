@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
-const API = 'http://localhost:3000'
+const API = 'https://hekayat-makan-api-production.up.railway.app/api'
 
 const places = ref([])
 const loading = ref(true)
