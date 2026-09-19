@@ -138,7 +138,7 @@
       "id": 1,
       "name": "القاهرة",
       "region": "وسط الدلتا",
-      "sitesCount": 4,
+      "sitesCount": 3,
       "sitesLabel": "معالم موثقة",
       "image": "https://images.pexels.com/photos/18991577/pexels-photo-18991577.jpeg"
     },
@@ -146,7 +146,7 @@
       "id": 2,
       "name": "الجيزة",
       "region": "غرب القاهرة",
-      "sitesCount": 2,
+      "sitesCount": 3,
       "sitesLabel": "معالم موثقة",
       "image": "https://images.pexels.com/photos/20290835/pexels-photo-20290835.jpeg"
     },
@@ -162,7 +162,7 @@
       "id": 4,
       "name": "أسوان",
       "region": "أقصى الجنوب",
-      "sitesCount": 2,
+      "sitesCount": 1,
       "sitesLabel": "معالم موثقة",
       "image": "https://images.pexels.com/photos/25070513/pexels-photo-25070513.jpeg"
     },
@@ -170,7 +170,7 @@
       "id": 5,
       "name": "الإسكندرية",
       "region": "الساحل الشمالي",
-      "sitesCount": 2,
+      "sitesCount": 1,
       "sitesLabel": "معالم موثقة",
       "image": "https://images.pexels.com/photos/36876708/pexels-photo-36876708.jpeg"
     },

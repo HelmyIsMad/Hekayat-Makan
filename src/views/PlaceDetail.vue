@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
-
-const API = 'https://hekayat-makan-api-production.up.railway.app/api'
+import { apiFetch } from '../utils/api.js'
 
 const route = useRoute()
 const place = ref(null)
@@ -11,11 +10,9 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const res = await fetch(`${API}/mainCards/${route.params.id}`)
-    if (!res.ok) throw new Error('تعذر جلب البيانات')
-    place.value = await res.json()
+    place.value = await apiFetch(`/mainCards/${route.params.id}`)
   } catch (e) {
-    error.value = 'تعذر تحميل بيانات المكان. تأكد من تشغيل خادم البيانات (npm run server).'
+    error.value = 'تعذر تحميل بيانات المكان.'
   } finally {
     loading.value = false
   }

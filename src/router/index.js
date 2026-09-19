@@ -1,87 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
- 
-//  :الراوتات اللي أنا مسؤولة عنها فقط  ساندي
-import PrivacyPolicy from '../views/PrivacyPolicy.vue'
-import TermsOfUse from '../views/TermsOfUse.vue'
-import Search from '../views/Search.vue'
-import Explore from '../views/Explore.vue'
-// الراوتات اللي أنا مسؤولة عنها : رحمه
-import Cities from '../views/Cities.vue'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import CityDetail from '../views/CityDetail.vue'
-import PlaceDetail from '../views/PlaceDetail.vue'
 
 const routes = [
-  
-  
-{
-    
-    path: '/',
-    name: 'home',
-    component: Home,
-  },
-  {
-    
-    path: '/explore',
-    name: 'explore',
-    component: Explore,
-  },
-  {
-    path: '/explore/:id',
-    name: 'PlaceDetail',
-    component: PlaceDetail,
-    props: true,
-  },
-  {
-    
-    path: '/cities',
-    name: 'cities',
-    component: Cities,
-  },
-  {
-  path: '/cities/:id',
-  name: 'CityDetail',
-  component: CityDetail,
-  props: true,
-},
-  {
-    path: '/place/:id',
-    name: 'place-detail',
-    component: PlaceDetail,
-    props: true,
-  },
-  {
-    
-    path: '/about',
-    name: 'about',
-    component: About,
-  },
-  {
-
-    path: '/privacy',
-    name: 'privacy',
-    component: PrivacyPolicy,
-  },
-  {
-    path: '/terms',
-    name: 'terms',
-    component: TermsOfUse,
-  },
-  {
-    path: '/search',
-    name: 'search',
-    component: Search,
-  },
+  { path: '/', name: 'home', component: () => import('../views/Home.vue') },
+  { path: '/explore', name: 'explore', component: () => import('../views/Explore.vue') },
+  { path: '/explore/:id', name: 'PlaceDetail', component: () => import('../views/PlaceDetail.vue'), props: true },
+  { path: '/cities', name: 'cities', component: () => import('../views/Cities.vue') },
+  { path: '/cities/:id', name: 'CityDetail', component: () => import('../views/CityDetail.vue'), props: true },
+  // legacy redirect
+  { path: '/place/:id', redirect: (to) => `/explore/${to.params.id}` },
+  { path: '/about', name: 'about', component: () => import('../views/About.vue') },
+  { path: '/privacy', name: 'privacy', component: () => import('../views/PrivacyPolicy.vue') },
+  { path: '/terms', name: 'terms', component: () => import('../views/TermsOfUse.vue') },
+  { path: '/search', name: 'search', component: () => import('../views/Search.vue') },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue') },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to) {
-    if (to.hash) {
-      return { el: to.hash, behavior: 'smooth' }
-    }
+    if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
   },
 })

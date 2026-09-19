@@ -27,8 +27,8 @@
       </div>
 
       <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap fade-up" style="animation-delay: 0.7s;">
-        <a href="#" class="btn btn-brand btn-tilt px-4 py-2">استكشف الأماكن</a>
-        <a href="#" class="btn btn-outline-beige btn-tilt px-4 py-2">عن المشروع</a>
+        <router-link to="/explore" class="btn btn-brand btn-tilt px-4 py-2">استكشف الأماكن</router-link>
+        <router-link to="/about" class="btn btn-outline-beige btn-tilt px-4 py-2">عن المشروع</router-link>
       </div>
 
       <div class="row justify-content-center text-center fade-up" style="animation-delay: 0.85s;">
@@ -61,25 +61,24 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { apiFetch } from '../utils/api.js'
 
+const router = useRouter()
 const searchQuery = ref('')
 const citiesCount = ref(0)
 const sitesCount = ref(0)
 
 function onSearch() {
-  console.log('بحث عن:', searchQuery.value)
+  if (searchQuery.value.trim()) router.push({ path: '/search', query: { q: searchQuery.value.trim() } })
 }
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://hekayat-makan-api-production.up.railway.app/api/cities')
-    const cities = await res.json()
-
+    const cities = await apiFetch('/cities')
     citiesCount.value = cities.length
     sitesCount.value = cities.reduce((sum, city) => sum + city.sitesCount, 0)
-  } catch (error) {
-    console.error('حصل خطأ في جلب البيانات:', error)
-  }
+  } catch {}
 })
 </script>
 

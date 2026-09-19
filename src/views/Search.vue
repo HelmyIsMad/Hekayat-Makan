@@ -1,8 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
-const API = 'https://hekayat-makan-api-production.up.railway.app/api'
+import { apiFetch } from '../utils/api.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,9 +15,7 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const res = await fetch(`${API}/mainCards`)
-    if (!res.ok) throw new Error('تعذر جلب البيانات')
-    const data = await res.json()
+    const data = await apiFetch('/mainCards')
     places.value = data.map((p) => ({
       id: p.id,
       name: p.title,
@@ -27,7 +24,7 @@ onMounted(async () => {
       badge: p.badge,
     }))
   } catch (e) {
-    error.value = 'تعذر تحميل نتائج البحث. تأكد من تشغيل خادم البيانات (npm run server).'
+    error.value = 'تعذر تحميل نتائج البحث.'
   } finally {
     loading.value = false
   }

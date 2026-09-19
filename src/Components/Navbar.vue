@@ -1,3 +1,14 @@
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const navQuery = ref('')
+const menuOpen = ref(false)
+function onNavSearch() {
+  if (navQuery.value.trim()) router.push({ path: '/search', query: { q: navQuery.value.trim() } })
+}
+</script>
+
 <template>
   <!-- رحمة: ده الـ Navbar الرئيسي للمشروع -->
   <nav class="navbar">
@@ -133,8 +144,10 @@
 
           <!-- رحمة: حقل البحث عن مكان أو مدينة -->
           <input
+            v-model="navQuery"
             type="text"
             placeholder="ابحث عن مكان أو مدينة..."
+            @keydown.enter="onNavSearch"
           />
 
         </div>
@@ -149,8 +162,20 @@
           ابدأ الاستكشاف
         </router-link>
 
+        <button class="menu-toggle" :aria-expanded="menuOpen.toString()" aria-label="القائمة" @click="menuOpen = !menuOpen">
+          <span></span><span></span><span></span>
+        </button>
+
       </div>
 
+    </div>
+
+    <div v-if="menuOpen" class="mobile-menu">
+      <router-link to="/" @click="menuOpen=false">الرئيسية</router-link>
+      <router-link to="/explore" @click="menuOpen=false">استكشف</router-link>
+      <router-link to="/cities" @click="menuOpen=false">المدن</router-link>
+      <router-link to="/about" @click="menuOpen=false">عن المشروع</router-link>
+      <router-link to="/search" @click="menuOpen=false">البحث</router-link>
     </div>
 
   </nav>
@@ -406,5 +431,33 @@
     padding: 0 14px;
     font-size: 1rem;
   }
+  .menu-toggle { display: flex !important; }
 }
+
+.navbar { min-height: 76px; height: auto; }
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px;
+}
+.menu-toggle span { display: block; height: 2px; background: #30251F; border-radius: 2px; }
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px 16px;
+  background: #F8F4ED;
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+.mobile-menu a { text-decoration: none; color: #30251F; font-weight: 600; padding: 8px 0; }
 </style>
