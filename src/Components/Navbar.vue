@@ -158,18 +158,14 @@
 
 
 <style scoped>
-
-/* رحمة: الألوان الأساسية اللي مستخدماها في المشروع */
 :global(:root) {
-  --teal: #176F73;
-  --dark: #30251F;
-  --text: #6F665E;
-  --cream: #F8F4ED;
-  --border: #DED8CF;
+  --teal: #1e4a45;
+  --dark: #241a10;
+  --text: #6b573f;
+  --cream: #f4efe6;
+  --border: #e2d8c4;
 }
 
-
-/* رحمة: ظبطت الخلفية العامة عشان ميبقاش فيه لون أبيض */
 :global(html),
 :global(body),
 :global(#app) {
@@ -180,442 +176,235 @@
   background: var(--cream);
 }
 
-
-/* رحمة: الشكل الأساسي للـ Navbar */
 .navbar {
   width: 100%;
-  height: 82px;
-
-  /* رحمة: لون خلفية الـ Navbar */
-  background: var(--cream);
-
-  /* رحمة: الخط الفاصل الخفيف تحت الـ Navbar */
-  border-bottom: 1px solid #E1DCD4;
-
-  /* رحمة: خليت الـ border محسوب داخل الحجم */
+  height: 88px;
+  background: rgba(244, 239, 230, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(36, 26, 16, 0.03);
 }
 
-
-/* رحمة: الحاوية اللي بتجمع مجموعتي الـ Navbar */
 .navbar-container {
   width: 100%;
+  max-width: 1300px;
   height: 100%;
-
-  /* رحمة: خليت المحتوى بعيد شوية عن أطراف الشاشة */
-  padding: 0 75px;
-
-  /* رحمة: خليت الـ padding والـ border داخل الحجم */
+  margin: 0 auto;
+  padding: 0 32px;
   box-sizing: border-box;
-
-  /* رحمة: استخدمت Flex لترتيب المجموعتين */
   display: flex;
-
-  /* رحمة: خليت العناصر في منتصف ارتفاع الـ Navbar */
   align-items: center;
-
-  /* رحمة: اتجاه الصفحة عربي */
   direction: rtl;
-
-  /* رحمة: خليت كل مجموعة في ناحية */
   justify-content: space-between;
 }
 
-
-/* رحمة: المجموعة اللي فيها اللوجو وروابط الصفحات */
 .navbar-right {
   display: flex;
   align-items: center;
-
-  /* رحمة: المسافة بين اللوجو ومجموعة الروابط */
-  gap: 30px;
-
-  /* رحمة: منعت المجموعة من إنها تتمدد */
+  gap: 35px;
   flex-shrink: 0;
-
-  /* رحمة: حركت المجموعة كلها ناحية السيرش */
-  transform: translateX(-120px);
 }
 
-
-/* رحمة: شكل اللوجو بالكامل */
 .logo {
   display: flex;
   align-items: center;
-
-  /* رحمة: المسافة بين أيقونة الموقع واسم المشروع */
-  gap: 9px;
-
-  /* رحمة: شلت الخط اللي تحت اللوجو */
+  gap: 12px;
   text-decoration: none;
-
-  /* رحمة: لون اسم المشروع */
   color: var(--dark);
-
-  /* رحمة: منعت اللوجو من التقلص */
   flex-shrink: 0;
+  transition: opacity 0.2s ease;
 }
 
+.logo:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
 
-/* رحمة: المربع اللي موجود فيه Icon الموقع */
 .logo-icon {
   width: 44px;
   height: 44px;
-
-  /* رحمة: خليت الحواف ناعمة */
   border-radius: 12px;
-
-  /* رحمة: لون خلفية الأيقونة */
   background: var(--teal);
-
-  /* رحمة: لون الأيقونة */
-  color: white;
-
-  /* رحمة: خليت الأيقونة في المنتصف */
+  color: #fffdf8;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 12px rgba(30, 74, 69, 0.2);
 }
 
-
-/* رحمة: حجم أيقونة الموقع */
 .logo-icon svg {
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
 }
 
-
-/* رحمة: اسم حكاية مكان */
 .logo-text {
-  font-size: 24px;
-
-  /* رحمة: وزن متوسط من غير ما يكون Bold قوي */
-  font-weight: 500;
-
-  /* رحمة: منعت الاسم من النزول لسطر تاني */
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 1.85rem;
+  font-weight: 700;
   white-space: nowrap;
+  color: #241a10;
+  letter-spacing: 0.8px;
 }
 
-
-/* رحمة: مجموعة روابط الصفحات */
 .nav-links {
   display: flex;
   align-items: center;
-
-  /* رحمة: المسافة بين كل رابط والتاني */
-  gap: 22px;
-
-  /* رحمة: منعت المجموعة من التمدد */
+  gap: 6px;
   flex-shrink: 0;
 }
 
-
-/* رحمة: شكل روابط الصفحات */
 .nav-item {
-  /* رحمة: لون الرابط قبل الـ Hover */
   color: var(--text);
-
-  /* رحمة: شلت الخط اللي تحت الرابط */
   text-decoration: none;
-
-  /* رحمة: حجم الخط */
-  font-size: 18px;
-
-  /* رحمة: خليت الخط عادي ومش Bold */
-  font-weight: 400;
-
-  /* رحمة: منعت الكلام من النزول لسطر تاني */
+  font-family: 'Markazi Text', 'Amiri', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
   white-space: nowrap;
-
-  /* رحمة: حجزت مساحة الـ Hover من البداية */
-  padding: 8px 10px;
-
-  /* رحمة: خليت حواف مربع الـ Hover ناعمة */
-  border-radius: 8px;
-
-  /* رحمة: خليت تغيير اللون والخلفية ناعم */
-  transition:
-    color 0.2s ease,
-    background 0.2s ease;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
-
-/* رحمة: لما أقف على أي رابط يظهر مربع خفيف جدًا */
 .nav-item:hover {
-  /* رحمة: لون الكلام يتحول للـ Teal */
   color: var(--teal);
-
-  /* رحمة: الخلفية خفيفة جدًا عشان متبقاش واضحة زيادة */
-  background: rgba(23, 111, 115, 0.06);
-
-  /* رحمة: تأكيد إن مفيش خط تحت الرابط */
+  background: rgba(30, 74, 69, 0.06);
   text-decoration: none;
+  transform: translateY(-1px);
 }
 
-
-/* رحمة: الصفحة الحالية تفضل باللون الـ Teal */
 .nav-item.active {
-  /* رحمة: لون الصفحة الحالية */
-  color: var(--teal);
-
-  /* رحمة: خليت الخط عادي من غير Bold */
-  font-weight: 400;
-
-  /* رحمة: مفيش underline */
+  color: #b8863b;
+  font-weight: 700;
+  background: rgba(184, 134, 59, 0.08);
   text-decoration: none;
 }
 
-
-/* رحمة: تأكيد إن مفيش أي خط إضافي تحت الروابط */
 .nav-item::after {
   display: none;
 }
 
-
-/* رحمة: مجموعة البحث وزر ابدأ الاستكشاف */
 .navbar-actions {
   display: flex;
   align-items: center;
-
-  /* رحمة: خليت البحث والزر قريبين من بعض */
-  gap: 9px;
-
-  /* رحمة: منعت المجموعة من التمدد */
+  gap: 16px;
   flex-shrink: 0;
-
-  /* رحمة: قربت المجموعة ناحية الروابط */
-  margin-left: 80px;
 }
 
-
-/* رحمة: شكل مربع البحث */
 .search-box {
-  width: 300px;
+  width: 270px;
   height: 44px;
-
-  /* رحمة: حدود خفيفة لمربع البحث */
   border: 1px solid var(--border);
-
-  /* رحمة: تدوير الحواف */
-  border-radius: 13px;
-
-  /* رحمة: لون خلفية البحث */
-  background: #FCFAF6;
-
-  /* رحمة: استخدمت Flex لترتيب عناصر البحث */
+  border-radius: 12px;
+  background: #faf6ed;
   display: flex;
   align-items: center;
-
-  /* رحمة: خليت الـ padding داخل حجم العنصر */
   box-sizing: border-box;
-
-  /* رحمة: المسافة الداخلية لمربع البحث */
   padding: 0 14px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(36, 26, 16, 0.02);
 }
 
+.search-box:focus-within {
+  border-color: var(--teal);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(30, 74, 69, 0.1), inset 0 2px 4px rgba(36, 26, 16, 0.02);
+}
 
-/* رحمة: شكل أيقونة البحث */
 .search-icon {
-  width: 21px;
-  height: 21px;
-
-  /* رحمة: لون الأيقونة */
-  color: #706961;
-
-  /* رحمة: منعت الأيقونة من التقلص */
+  width: 18px;
+  height: 18px;
+  color: #8c785f;
   flex-shrink: 0;
-
-  /* رحمة: مسافة بين الأيقونة والكتابة */
-  margin-left: 9px;
+  margin-left: 10px;
 }
 
-
-/* رحمة: حقل الكتابة داخل مربع البحث */
 .search-box input {
   width: 100%;
-
-  /* رحمة: شلت الحدود الافتراضية */
   border: none;
-
-  /* رحمة: شلت الـ outline */
   outline: none;
-
-  /* رحمة: خليت الخلفية شفافة */
   background: transparent;
-
-  /* رحمة: لون الكتابة */
   color: var(--dark);
-
-  /* رحمة: حجم النص */
-  font-size: 15px;
-
-  /* رحمة: استخدمت نفس خط المشروع */
-  font-family: inherit;
-
-  /* رحمة: خليت اتجاه الكتابة عربي */
+  font-size: 0.95rem;
+  font-family: 'Markazi Text', 'Amiri', inherit;
   direction: rtl;
 }
 
-
-/* رحمة: لون الـ Placeholder */
 .search-box input::placeholder {
-  color: #918980;
+  color: #a3927d;
 }
 
-
-/* رحمة: زر ابدأ الاستكشاف */
 .start-button {
   height: 44px;
-
-  /* رحمة: المسافة الداخلية للزر */
-  padding: 0 20px;
-
-  /* رحمة: تدوير حواف الزر */
+  padding: 0 22px;
   border-radius: 12px;
-
-  /* رحمة: لون الزر */
   background: var(--teal);
-
-  /* رحمة: لون النص */
   color: white;
-
-  /* رحمة: خليت الكلام في المنتصف */
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* رحمة: شلت الخط اللي تحت الزر */
   text-decoration: none;
-
-  /* رحمة: حجم النص */
-  font-size: 15px;
-
-  /* رحمة: وزن متوسط */
-  font-weight: 500;
-
-  /* رحمة: منعت النص من النزول لسطر تاني */
+  font-family: 'Markazi Text', 'Amiri', inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
   white-space: nowrap;
-
-  /* رحمة: خليت حركة الزر ناعمة */
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
+  box-shadow: 0 4px 12px rgba(30, 74, 69, 0.25);
+  transition: all 0.3s ease;
 }
 
-
-/* رحمة: لما أقف على زر ابدأ الاستكشاف */
 .start-button:hover {
-  /* رحمة: غمقت لون الزر درجة بسيطة */
-  background: #126367;
-
-  /* رحمة: حركة بسيطة لفوق */
-  transform: translateY(-1px);
-
-  /* رحمة: تأكيد عدم وجود underline */
+  background: #153532;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 74, 69, 0.35);
   text-decoration: none;
 }
 
-
-/* رحمة: اللوجو مفيش تحته خط حتى عند الـ Hover */
-.logo:hover {
-  text-decoration: none;
-}
-
-
-/* رحمة: إعدادات الشاشات المتوسطة */
 @media (max-width: 1200px) {
-
-  /* رحمة: قللت المسافة من أطراف الشاشة */
   .navbar-container {
-    padding: 0 35px;
+    padding: 0 24px;
   }
-
-  /* رحمة: قللت المسافات على الشاشة المتوسطة */
   .navbar-right {
-    gap: 20px;
-
-    /* رحمة: قللت حركة المجموعة */
-    transform: translateX(-40px);
+    gap: 25px;
   }
-
-  /* رحمة: قللت المسافة بين الروابط */
-  .nav-links {
-    gap: 16px;
-  }
-
-  /* رحمة: صغرت مربع البحث */
   .search-box {
-    width: 230px;
-  }
-
-  /* رحمة: قللت المسافة بين المجموعتين */
-  .navbar-actions {
-    margin-left: 25px;
+    width: 210px;
   }
 }
 
-
-/* رحمة: إعدادات الشاشات الأصغر */
 @media (max-width: 950px) {
-
-  /* رحمة: أخفيت روابط الـ Navbar لتوفير المساحة */
   .nav-links {
     display: none;
   }
-
-  /* رحمة: قللت المسافة من الأطراف */
-  .navbar-container {
-    padding: 0 25px;
-  }
-
-  /* رحمة: رجعت المجموعة لمكانها الطبيعي */
-  .navbar-right {
-    transform: translateX(0);
-  }
-
-  /* رحمة: خليت البحث أصغر */
   .search-box {
-    width: 220px;
-  }
-
-  /* رحمة: شلت المسافة الإضافية */
-  .navbar-actions {
-    margin-left: 0;
+    width: 190px;
   }
 }
 
-
-/* رحمة: إعدادات الموبايل */
 @media (max-width: 600px) {
-
-  /* رحمة: قللت المسافة من الأطراف */
+  .navbar {
+    height: 76px;
+  }
   .navbar-container {
-    padding: 0 12px;
+    padding: 0 16px;
   }
-
-  /* رحمة: صغرت اسم المشروع */
   .logo-text {
-    font-size: 21px;
+    font-size: 1.5rem;
   }
-
-  /* رحمة: صغرت أيقونة اللوجو */
   .logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
   }
-
-  /* رحمة: أخفيت مربع البحث على الموبايل */
   .search-box {
     display: none;
   }
-
-  /* رحمة: صغرت زر الاستكشاف */
   .start-button {
-    height: 40px;
+    height: 38px;
     padding: 0 14px;
-    font-size: 13px;
+    font-size: 1rem;
   }
 }
-
 </style>
