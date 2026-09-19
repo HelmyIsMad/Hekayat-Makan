@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const API = 'http://localhost:3000'
+const API = 'https://hekayat-makan-api-production.up.railway.app/api'
 
 const cities = ref([])
 const loading = ref(true)

@@ -72,7 +72,7 @@ function onSearch() {
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:3000/cities')
+    const res = await fetch('https://hekayat-makan-api-production.up.railway.app/api/cities')
     const cities = await res.json()
 
     citiesCount.value = cities.length

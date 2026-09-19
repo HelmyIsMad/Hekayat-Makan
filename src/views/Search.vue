@@ -2,7 +2,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const API = 'http://localhost:3000'
+const API = 'https://hekayat-makan-api-production.up.railway.app/api'
 
 const route = useRoute()
 const router = useRouter()
