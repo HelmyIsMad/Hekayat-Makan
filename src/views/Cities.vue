@@ -51,46 +51,51 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* نفس هوية ولون صفحة التصميم */
 .page {
   width: 100%;
   min-height: calc(100vh - 82px);
-  background: #F8F4ED;
+  background: #f4efe6;
   direction: rtl;
+  font-family: 'Markazi Text', 'Amiri', serif;
 }
 
 .section-header {
-  max-width: 1180px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 64px 24px 0;
 }
-
 .eyebrow {
   display: block;
   color: #6b573f;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
 }
 
+
 .section-header h2 {
-  font-size: 2rem;
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-size: 2.3rem;
   margin: 0;
   color: #241a10;
+  font-weight: 700;
 }
 
 .subtitle {
   margin: 8px 0 0;
   color: #6b573f;
+  font-size: 1.2rem;
 }
 
 .state-box {
-  max-width: 1180px;
+  max-width: 1400px;
   margin: 32px auto;
   padding: 40px 20px;
   text-align: center;
   color: #6b573f;
+  font-size: 1.15rem;
   border: 1px dashed #d9cfba;
-  border-radius: 12px;
+  border-radius: 16px;
   background: #f9f6ee;
 }
 
@@ -101,35 +106,37 @@ onMounted(async () => {
 }
 
 .grid {
-  max-width: 1180px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 32px 24px 64px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
 }
 
 .card {
   display: block;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
   border: 1px solid #e2d8c4;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.015);
-  box-shadow: 0 26px 40px -20px rgba(30, 74, 69, 0.4);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 30px -12px rgba(30, 74, 69, 0.3);
   border-color: #b8863b;
 }
 
 .image-wrap {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
 }
 
@@ -147,7 +154,7 @@ onMounted(async () => {
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(20, 14, 8, 0.85) 0%, rgba(20, 14, 8, 0.25) 45%, transparent 70%);
+  background: linear-gradient(to top, rgba(15, 25, 23, 0.9) 0%, rgba(15, 25, 23, 0.3) 50%, transparent 80%);
 }
 
 .card-info {
@@ -155,42 +162,53 @@ onMounted(async () => {
   bottom: 0;
   right: 0;
   left: 0;
-  padding: 20px;
-  color: #fff;
+  padding: 16px 12px;
+  color: #fffdf8;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  z-index: 2;
+  text-align: center;
 }
 
 .region {
-  font-size: 0.8rem;
-  opacity: 0.85;
+  font-size: 0.75rem;
+  color: #e5b875;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .card-info h3 {
   margin: 0;
-  font-size: 1.4rem;
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fffdf8;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .sites {
   font-size: 0.85rem;
-  color: #e8d9b8;
-  font-weight: 600;
+  color: #f0e6d2;
+  font-weight: 500;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 480px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .image-wrap {
-    aspect-ratio: 4 / 3;
   }
 }
 </style>

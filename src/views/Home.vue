@@ -10,6 +10,9 @@
 
     <!-- باقي محتوى الصفحة -->
     <Main />
+    
+    <Cities />
+    
 
   </main>
 </template>
@@ -18,6 +21,7 @@
 import Main from '../Components/Main.vue'
 import HeroSection from '../Components/HeroSection.vue'
 import WeeklyStory from '../Components/WeeklyStory.vue'
+import Cities from './Cities.vue';
 </script>
 
 <style scoped>
