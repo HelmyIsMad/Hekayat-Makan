@@ -14,21 +14,13 @@
         اكتشف المعابد والأهرامات والمساجد والقلاع والمتاحف، مرتبةً حسب المدينة والحقبة الزمنية، واقرأ قصة كل معلمٍ من بدايته حتى اليوم.
       </p>
 
-      <div class="input-group mb-5 mx-auto search-group fade-up" style="max-width: 500px; animation-delay: 0.55s;">
-        <input
-          type="text"
-          class="form-control search-beige"
-          placeholder="ابحث عن مكان..."
-          v-model="searchQuery"
-        />
-        <button class="btn btn-brand" type="button" @click="onSearch">
-          بحث
-        </button>
-      </div>
-
-      <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap fade-up" style="animation-delay: 0.7s;">
-        <router-link to="/explore" class="btn btn-brand btn-tilt px-4 py-2">استكشف الأماكن</router-link>
-        <router-link to="/about" class="btn btn-outline-beige btn-tilt px-4 py-2">عن المشروع</router-link>
+      <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap fade-up" style="animation-delay: 0.55s;">
+        <router-link to="/explore" class="btn btn-brand btn-start btn-tilt">
+          ابدأ الاستكشاف
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </router-link>
       </div>
 
       <div class="row justify-content-center text-center fade-up" style="animation-delay: 0.85s;">
@@ -173,32 +165,6 @@ onMounted(async () => {
   color: #e5dcc3;
 }
 
-.search-group {
-  transition: transform 0.3s ease;
-}
-
-.search-group:focus-within {
-  transform: scale(1.04);
-}
-
-.search-beige {
-  background-color: #f3ecd9;
-  border-color: #f3ecd9;
-  color: #0f6d66;
-  font-family: 'Tajawal', sans-serif;
-  transition: box-shadow 0.3s ease;
-}
-
-.search-beige::placeholder {
-  color: #6b6250;
-}
-
-.search-beige:focus {
-  background-color: #f3ecd9;
-  border-color: #0f6d66;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
 .btn-brand {
   background-color: #0f6d66;
   border-color: #0f6d66;
@@ -219,21 +185,22 @@ onMounted(async () => {
   opacity: 1 !important;
 }
 
-.btn-outline-beige {
-  border-color: #f3ecd9;
-  color: #f3ecd9;
-  font-family: 'Tajawal', sans-serif;
-  font-weight: 600;
-  transition: background-color 0.15s ease, color 0.15s ease;
+.btn-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 38px;
+  border-radius: 999px;
+  font-size: 1.25rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
-.btn-outline-beige:hover,
-.btn-outline-beige:active,
-.btn-outline-beige:focus {
-  background-color: #f3ecd9 !important;
-  color: #0f6d66 !important;
-  box-shadow: none !important;
-  opacity: 1 !important;
+.btn-start svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-start:hover svg {
+  transform: translateX(-5px);
 }
 
 .btn-tilt {

@@ -107,7 +107,7 @@ const cityLandmarks = computed(() => {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
   transform: scale(1.05);
   animation: slowZoom 15s infinite alternate;
