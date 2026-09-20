@@ -155,12 +155,12 @@ function onNavSearch() {
 
         <!-- رحمة: زر ابدأ الاستكشاف -->
         <!-- رحمة: الزر ده مربوط بنفس صفحة استكشف -->
-        <router-link
+        <!-- <router-link
           to="/explore"
           class="start-button"
         >
           ابدأ الاستكشاف
-        </router-link>
+        </router-link> -->
 
         <button class="menu-toggle" :aria-expanded="menuOpen.toString()" aria-label="القائمة" @click="menuOpen = !menuOpen">
           <span></span><span></span><span></span>
@@ -214,24 +214,23 @@ function onNavSearch() {
   box-shadow: 0 4px 20px rgba(36, 26, 16, 0.03);
 }
 
+/* ---------- التخطيط: اللوجو يمين | الروابط في النص | البحث والزرار شمال ---------- */
 .navbar-container {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1400px;
   height: 100%;
   margin: 0 auto;
   padding: 0 32px;
   box-sizing: border-box;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* العمودين الجانبيين متساويين فالروابط بتتوسّط بالظبط */
   align-items: center;
   direction: rtl;
-  justify-content: space-between;
 }
 
+/* بنفك الحاوية عشان اللوجو والروابط يبقوا عناصر مباشرة في الـ grid */
 .navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  flex-shrink: 0;
+  display: contents;
 }
 
 .logo {
@@ -241,6 +240,7 @@ function onNavSearch() {
   text-decoration: none;
   color: var(--dark);
   flex-shrink: 0;
+  justify-self: start; /* يمين الصفحة (RTL) */
   transition: opacity 0.2s ease;
 }
 
@@ -278,8 +278,10 @@ function onNavSearch() {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
   flex-shrink: 0;
+  justify-self: center; /* نص الصفحة */
 }
 
 .nav-item {
@@ -317,10 +319,11 @@ function onNavSearch() {
   align-items: center;
   gap: 16px;
   flex-shrink: 0;
+  justify-self: end; /* شمال الصفحة (RTL) */
 }
 
 .search-box {
-  width: 270px;
+  width: 240px;
   height: 44px;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -387,12 +390,33 @@ function onNavSearch() {
   text-decoration: none;
 }
 
+/* ---------- الريسبونسيف (من الأكبر للأصغر) ---------- */
+@media (max-width: 1300px) {
+  .search-box {
+    width: 190px;
+  }
+}
+
 @media (max-width: 1200px) {
   .navbar-container {
     padding: 0 24px;
   }
+  .search-box {
+    width: 170px;
+  }
+}
+
+/* تحت 1100px مفيش مكان يكفي الروابط في النص، فبنرجع للتخطيط القديم (الروابط جنب اللوجو) */
+@media (max-width: 1100px) {
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+  }
   .navbar-right {
+    display: flex;
+    align-items: center;
     gap: 25px;
+    flex-shrink: 0;
   }
   .search-box {
     width: 210px;

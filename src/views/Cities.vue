@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { apiFetch } from '../utils/api.js'
+import data from '../../data.json'
 
 const cities = ref([])
 const loading = ref(true)
@@ -8,9 +9,13 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    cities.value = await apiFetch('/cities')
+    const apiCities = await apiFetch('/cities')
+    cities.value = apiCities.map((c) => {
+      const local = data.cities.find((d) => d.id === c.id)
+      return local ? { ...c, ...local } : c
+    })
   } catch (e) {
-    error.value = 'تعذر تحميل المدن.'
+    cities.value = data.cities
   } finally {
     loading.value = false
   }

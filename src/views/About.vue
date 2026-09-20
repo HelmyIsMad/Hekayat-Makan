@@ -1,5 +1,4 @@
 <template>
-  <!-- صفحة عن المشروع: وصف بسيط + أسئلة شائعة -->
   <main class="page">
     <div class="wrap">
       <span class="eyebrow">عن المشروع</span>
@@ -92,8 +91,9 @@ import { RouterLink } from 'vue-router'
 .page {
   width: 100%;
   min-height: calc(100vh - 82px);
-  background: #F8F4ED;
+  background: #f4efe6;
   direction: rtl;
+  font-family: 'Markazi Text', 'Amiri', serif;
 }
 
 .wrap {
@@ -104,19 +104,22 @@ import { RouterLink } from 'vue-router'
 
 .eyebrow {
   display: block;
-  color: #6b573f;
+  color: #b8863b;
   font-weight: 600;
   margin-bottom: 6px;
+  font-size: 1.1rem;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-size: 3rem;
   margin: 0 0 16px;
-  color: #241a10;
+  color: #1e4a45;
+  font-weight: 700;
 }
 
 .lead {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   line-height: 1.9;
   color: #3a332b;
   margin: 0 0 40px;
@@ -149,20 +152,23 @@ h1 {
 }
 
 .feature strong {
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
   color: #1e4a45;
-  font-size: 1.05rem;
+  font-size: 1.3rem;
 }
 
 .feature span {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: #6b573f;
   line-height: 1.6;
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-size: 2.2rem;
   margin: 0 0 20px;
-  color: #241a10;
+  color: #1e4a45;
+  font-weight: 700;
 }
 
 .faq {
@@ -185,6 +191,8 @@ details[open] {
 summary {
   padding: 18px 20px;
   cursor: pointer;
+  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #241a10;
   list-style: none;
@@ -214,9 +222,9 @@ details[open] summary::after {
 details p {
   margin: 0;
   padding: 0 20px 20px;
-  color: #6b573f;
+  color: #5b584f;
   line-height: 1.9;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 @media (max-width: 700px) {
@@ -225,3 +233,4 @@ details p {
   }
 }
 </style>
+

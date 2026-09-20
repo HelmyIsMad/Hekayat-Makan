@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { apiFetch } from '../utils/api.js'
+import data from '../../data.json'
 
 const places = ref([])
 const loading = ref(true)
@@ -9,16 +10,17 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    places.value = await apiFetch('/mainCards')
+    const apiPlaces = await apiFetch('/mainCards')
+    const localIds = new Set(data.mainCards.map((d) => d.id))
+    const extra = apiPlaces.filter((p) => !localIds.has(p.id))
+    places.value = [...data.mainCards, ...extra]
   } catch (e) {
-    error.value =
-      'تعذر تحميل المعالم. تأكد من تشغيل خادم البيانات (npm run server).'
+    places.value = data.mainCards
   } finally {
     loading.value = false
   }
 })
 </script>
-
 <template>
   <main class="page">
     <div class="section-header">
